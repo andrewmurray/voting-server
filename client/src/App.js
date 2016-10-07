@@ -8,7 +8,7 @@ const pair = ['Trainspotting','28 Days Later'];
 class App extends Component {
     render() {
         return (
-            <Voting pair={pair} />
+            <Voting pair={pair} hasVoted="Trainspotting" />
         );
     }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {renderIntoDocument, scryRenderedDOMComponentsWithTag, Simulate} from 'react-addons-test-utils';
 import {expect} from 'chai';
-
+import {List} from 'immutable';
 import Voting from '../../src/components/Voting';
 
 describe('Voting', () => {
@@ -30,7 +30,7 @@ describe('Voting', () => {
         expect(votedWith).to.equal('Trainspotting');
     });
 
-    it('disabled buttons when user has voted', () => {
+    it('disables buttons when user has voted', () => {
         const component = renderIntoDocument(
             <Voting pair={["Trainspotting", "28 Days Later"]}
                     hasVoted="Trainspotting"/>
@@ -57,7 +57,7 @@ describe('Voting', () => {
             <Voting winner="Trainspotting" />
         );
         const buttons = scryRenderedDOMComponentsWithTag(component, 'button');
-        
+
         expect(buttons.length).to.equal(0);
         const winner = ReactDOM.findDOMNode(component.refs.winner);
         expect(winner).to.be.ok;
@@ -75,9 +75,9 @@ describe('Voting', () => {
         let firstButton = scryRenderedDOMComponentsWithTag(component, 'button')[0];
         expect(firstButton.textContent).to.equal('Trainspotting');
 
-        pair[0] = 'Sunshine';
+        const newPair = pair.set(0, 'Sunshine');
         component = ReactDOM.render(
-            <Voting pair={pair}/>, container
+            <Voting pair={newPair}/>, container
         );
 
         firstButton = scryRenderedDOMComponentsWithTag(component, 'button')[0];
